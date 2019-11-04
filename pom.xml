@@ -31,7 +31,7 @@
 
   <build>
     <finalName>JnshuTask2</finalName>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+ <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
@@ -65,10 +65,24 @@
         <plugin>
           <groupId>org.eclipse.jetty</groupId>
           <artifactId>jetty-maven-plugin</artifactId>
-          <version>9.2.1.v20140609</version>
+
+          <version>9.3.7.v20160115</version>
+          <configuration>
+            <!--idleTimeout。一次连接的最大空闲时间。-->
+            <!--port。jetty服务器的端口号。-->
+            <!--host。jetty服务器监听的地址。-->
+            <!--scanIntervalSeconds。扫描进行热部署的间隔时间。-->
+            <httpConnector>
+              <port>8080</port>
+              <host>localhost</host>
+            </httpConnector>
+            <!--<scanIntervalSeconds>5</scanIntervalSeconds>-->
+            <!--<jettyXml>jetty.xml,jetty-ssl.xml,jetty-https.xml</jettyXml>-->
+          </configuration>
+
         </plugin>
 
       </plugins>
-    </pluginManagement>
+
   </build>
 </project>
