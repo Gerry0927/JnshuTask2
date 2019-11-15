@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gerry.jnshu.mapper.StudentMapper">
+
+    <!--<resultMap id="studentRM" type="com.gary.mavenmybatis.entity.Student">-->
+        <!--<id property="id" column="id"/>-->
+        <!--<result property="name" column="name"/>-->
+        <!--<result property="qq" column="qq"/>-->
+    <!--</resultMap>-->
+    <sql id="base_column">
+        name,qq,jnshu_type,join_time,school,online_num,daily_url,slogan,counsellor,known_path
+    </sql>
+
+    <select id="getStudentList" resultType="com.gerry.jnshu.bean.Student">
+        SELECT
+        <include refid="base_column"/>
+        FROM student;
+    </select>
+    <select id="queryStudentById" parameterType="long" resultType="com.gerry.jnshu.bean.Student">
+        SELECT * FROM student WHERE id = #{id}
+    </select>
+    <select id="queryStudentByName" parameterType="java.lang.String" resultType="com.gerry.jnshu.bean.Student">
+        SELECT id,name,jnshu_type,online_num,counsellor FROM student WHERE name = #{id}
+    </select>
+    <insert id="addStudent" useGeneratedKeys="true" keyProperty="id" parameterType="com.gerry.jnshu.bean.Student">
+      INSERT INTO student(name,qq,jnshu_type,join_time,school,online_num,daily_url,slogan,counsellor,known_path)
+                VALUES (#{name},#{qq},#{jnshuType},#{joinTime},#{school},#{onlineNum},#{dailyUrl},#{slogan},#{counsellor},#{knownPath})
+    </insert>
+    
+    <insert id="insertStudentInfos" parameterType="java.util.List">
+        INSERT INTO student(name,qq,jnshu_type,join_time,school,online_num,daily_url,slogan,counsellor,known_path)
+        VALUES
+        <foreach collection="stuInfos" index="index" item="item" separator=",">
+            (#{item.name},#{item.qq},#{item.jnshuType},#{item.joinTime},#{item.school},#{item.onlineNum},#{item.dailyUrl},#{item.slogan},#{item.counsellor},#{item.knownPath})
+        </foreach>
+    </insert>
+    <update id="updateSloganById">
+       UPDATE student SET slogan = #{param1} WHERE ID = #{param2}
+
+   </update>
+    <delete id="deleteStudentById" parameterType="long">
+        DELETE FROM student WHERE  id = #{id}
+    </delete>
+</mapper>
