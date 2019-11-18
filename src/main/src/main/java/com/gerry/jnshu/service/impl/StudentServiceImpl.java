@@ -21,4 +21,14 @@ public class StudentServiceImpl implements StudentService {
     public int addStudent(Student student) {
         return studentMapper.addStudent(student);
     }
+
+    @Override
+    public int updateSloganById(Integer id, String slogan) {
+        return studentMapper.updateSloganById(id,slogan);
+    }
+
+    @Override
+    public int deleteStudentById(Integer id) {
+        return studentMapper.deleteStudentById(id);
+    }
 }

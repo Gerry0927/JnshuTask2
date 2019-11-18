@@ -1,6 +1,6 @@
 package com.gerry.jnshu.controller;
 
-import com.gerry.jnshu.bean.Result;
+import com.gerry.jnshu.response.Result;
 import com.gerry.jnshu.bean.Student;
 import com.gerry.jnshu.service.StudentService;
 import org.springframework.stereotype.Controller;
@@ -34,29 +34,59 @@ public class StudentController {
     @ResponseBody
     public Result<List<Student>> getStudentList(){
         List<Student> studentList = studentService.getStudentList();
-        Result<List<Student>> result = new Result<>();
-        result.data=studentList;
-        result.message="查询成功";
-        result.code=200;
-        return result;
+        String msg = "";
+        if(studentList.size()>0){
+            msg="查询成功";
+        }
+        else{
+            msg="暂无数据";
+        }
+        return Result.success(studentList,msg);
     }
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
     @ResponseBody
     public Result<Integer> addStudentInfo(Student student){
         int id = studentService.addStudent(student);
-        Result<Integer> result = new Result<>();
-        result.code=200;
+        String msg = "";
         if(id>0){
-            result.message="插入成功";
-            result.data=id;
+           msg="插入成功";
         }
         else{
-            result.message="插入失败";
+            msg="插入失败";
         }
-        return result;
+        return Result.success(id,msg);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/{id}/{slogan}",method = RequestMethod.PUT)
+    public Result<Integer> updateSlogan(@PathVariable Integer id,@PathVariable String slogan){
+        int row = studentService.updateSloganById(id,slogan);
+        String msg = "";
+        if(row>0){
+            msg="更新成功";
+        }
+        else{
+            msg="更新失败";
+        }
+        return Result.success(row,msg);
+
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    public Result<Integer> deleteStudentInfo(@PathVariable Integer id){
+        int row = studentService.deleteStudentById(id);
+        String msg = "";
+        if(row>0){
+            msg="删除成功";
+        }
+        else{
+            msg="删除失败";
+        }
+        return Result.success(row,msg);
+
+    }
 
 
     @RequestMapping(value = "/queryInfo2")

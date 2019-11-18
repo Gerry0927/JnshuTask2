@@ -37,10 +37,9 @@
         </foreach>
     </insert>
     <update id="updateSloganById">
-       UPDATE student SET slogan = #{param1} WHERE ID = #{param2}
-
+       UPDATE student SET slogan = #{param2} WHERE ID = #{param1}
    </update>
-    <delete id="deleteStudentById" parameterType="long">
+    <delete id="deleteStudentById" parameterType="Integer">
         DELETE FROM student WHERE  id = #{id}
     </delete>
 </mapper>

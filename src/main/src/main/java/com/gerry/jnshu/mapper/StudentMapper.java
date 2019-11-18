@@ -9,5 +9,6 @@ import java.util.List;
 public interface StudentMapper {
     List<Student> getStudentList();
     int addStudent(Student student);
-
+    int updateSloganById(Integer id,String slogan);
+    int deleteStudentById(Integer id);
 }
