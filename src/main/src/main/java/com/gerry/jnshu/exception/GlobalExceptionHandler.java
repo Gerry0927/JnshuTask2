@@ -47,6 +47,8 @@ public class GlobalExceptionHandler{
             return Result.failed("content_type_not_supported");
         }
 
+
+
         /**
          * 500 - Internal Server Error
          */
@@ -61,5 +63,6 @@ public class GlobalExceptionHandler{
             e.printStackTrace();
             return Result.failed("server_error");
         }
+
 
 }
