@@ -1,16 +1,24 @@
 package com.gerry.jnshu.bean;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.util.Date;
 import java.util.List;
 
 public class Student {
     private int id;
+
+    @NotBlank(message = "用户名不能为空")
     private String name;
-    private String qq;
+    @NotBlank(message = "学号不能为空")
+    private String onlineNum;
+    @NotBlank(message = "修真类型不能为空")
     private String jnshuType;
+
+    private String qq;
     private String joinTime;
     private String school;
-    private String onlineNum;
     private String dailyUrl;
     private String slogan;
     private String counsellor;

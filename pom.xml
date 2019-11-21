@@ -125,8 +125,17 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>${jstl.version}</version>
+            <version>1.2</version>
+            <scope>runtime</scope>
         </dependency>
+
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
+            <scope>runtime</scope>
+        </dependency>
+
         <!--servlet & jsp 依赖-->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -135,24 +144,12 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
+            <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>2.0</version>
+            <version>2.2</version>
+            <scope>provided</scope>
         </dependency>
 
-        <!--参数校验-->
-        <!--jsr 303-->
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>1.1.0.Final</version>
-        </dependency>
-        <!-- hibernate validator-->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>5.2.0.Final</version>
-        </dependency>
 
         <!--log4j2-->
         <dependency>
@@ -176,7 +173,12 @@
             <version>1.7.10</version>
         </dependency>
 
-
+        <!-- hibernate validator-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.0.2.Final</version>
+        </dependency>
 
 
         <dependency>

@@ -11,6 +11,7 @@
         <context:exclude-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
+
     <!-- 配置数据源 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
           init-method="init" destroy-method="close">

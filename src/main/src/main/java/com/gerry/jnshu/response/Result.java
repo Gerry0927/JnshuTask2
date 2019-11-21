@@ -51,6 +51,14 @@ public class Result<T> {
 
     /**
      * 失败返回结果
+     * @param message 提示信息
+     */
+    public static <T> Result<T> failed(int code,String message) {
+        return new Result<T>(code, message, null);
+    }
+
+    /**
+     * 失败返回结果
      */
     public static <T> Result<T> failed() {
         return failed(ResultCode.FAILED);

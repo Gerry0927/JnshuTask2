@@ -1,25 +1,24 @@
 package com.gerry.jnshu.controller;
 
-import com.gerry.jnshu.response.Result;
 import com.gerry.jnshu.bean.Student;
+import com.gerry.jnshu.response.Result;
 import com.gerry.jnshu.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.jws.WebParam;
 import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("student")
 @Controller
-public class StudentController {
+public class StudentController2 {
 
     @Resource
     StudentService studentService;
@@ -35,11 +34,17 @@ public class StudentController {
 
 
     @RequestMapping(value = "/",method = RequestMethod.GET)
-    public String getStudentList(Model model){
+    @ResponseBody
+    public Result<List<Student>> getStudentList(){
         List<Student> studentList = studentService.getStudentList();
-        model.addAttribute("allStu",studentList);
-        model.addAttribute("msg","hello");
-        return "student_list";
+        String msg = "";
+        if(studentList.size()>0){
+            msg="查询成功";
+        }
+        else{
+            msg="暂无数据";
+        }
+        return Result.success(studentList,msg);
     }
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
