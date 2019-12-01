@@ -10,13 +10,13 @@
         <!--<result property="qq" column="qq"/>-->
     <!--</resultMap>-->
     <sql id="base_column">
-        name,qq,jnshu_type,join_time,school,online_num,daily_url,slogan,counsellor,known_path
+        id,name,qq,jnshu_type,join_time,school,online_num,daily_url,slogan,counsellor,known_path
     </sql>
 
     <select id="getStudentList" resultType="com.gerry.jnshu.bean.Student">
         SELECT
         <include refid="base_column"/>
-        FROM student;
+        FROM student ORDER BY id DESC
     </select>
     <select id="queryStudentById" parameterType="long" resultType="com.gerry.jnshu.bean.Student">
         SELECT * FROM student WHERE id = #{id}

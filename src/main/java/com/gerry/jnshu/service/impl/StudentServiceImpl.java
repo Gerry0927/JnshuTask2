@@ -3,6 +3,8 @@ package com.gerry.jnshu.service.impl;
 import com.gerry.jnshu.bean.Student;
 import com.gerry.jnshu.mapper.StudentMapper;
 import com.gerry.jnshu.service.StudentService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -13,8 +15,11 @@ public class StudentServiceImpl implements StudentService {
     @Resource
     private StudentMapper studentMapper;
     @Override
-    public List<Student> getStudentList() {
-        return studentMapper.getStudentList();
+    public PageInfo<Student> getStudentList(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Student> studentList = studentMapper.getStudentList();
+        PageInfo<Student> pageInfo = new PageInfo<Student>(studentList);
+        return pageInfo;
     }
 
     @Override

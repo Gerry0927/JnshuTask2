@@ -33,19 +33,19 @@ public class StudentController2 {
     }
 
 
-    @RequestMapping(value = "/",method = RequestMethod.GET)
-    @ResponseBody
-    public Result<List<Student>> getStudentList(){
-        List<Student> studentList = studentService.getStudentList();
-        String msg = "";
-        if(studentList.size()>0){
-            msg="查询成功";
-        }
-        else{
-            msg="暂无数据";
-        }
-        return Result.success(studentList,msg);
-    }
+//    @RequestMapping(value = "/",method = RequestMethod.GET)
+//    @ResponseBody
+//    public Result<List<Student>> getStudentList(){
+//        List<Student> studentList = studentService.getStudentList();
+//        String msg = "";
+//        if(studentList.size()>0){
+//            msg="查询成功";
+//        }
+//        else{
+//            msg="暂无数据";
+//        }
+//        return Result.success(studentList,msg);
+//    }
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
     @ResponseBody

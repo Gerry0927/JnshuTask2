@@ -10,8 +10,8 @@
         <property name="prefix" value="/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-    <mvc:annotation-driven conversion-service="conversionService"/>
     <mvc:default-servlet-handler/>
+    <mvc:annotation-driven conversion-service="conversionService"/>
     <bean id="conversionService"
           class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">

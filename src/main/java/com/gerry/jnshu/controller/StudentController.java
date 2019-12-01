@@ -3,6 +3,8 @@ package com.gerry.jnshu.controller;
 import com.gerry.jnshu.response.Result;
 import com.gerry.jnshu.bean.Student;
 import com.gerry.jnshu.service.StudentService;
+import com.github.pagehelper.PageInfo;
+import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -24,65 +26,39 @@ public class StudentController {
     @Resource
     StudentService studentService;
 
-    @RequestMapping(value = "/{id}/{name}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/{name}", method = RequestMethod.GET)
     @ResponseBody
-    public Student getStudentInfo(@PathVariable Integer id, @PathVariable String name){
+    public Student getStudentInfo(@PathVariable Integer id, @PathVariable String name) {
         Student student = new Student();
         student.setName(name);
         student.setId(id);
         return student;
     }
 
-
     @RequestMapping(value = "/",method = RequestMethod.GET)
-    public String getStudentList(Model model){
-        List<Student> studentList = studentService.getStudentList();
-        model.addAttribute("allStu",studentList);
-        model.addAttribute("msg","hello");
+    public String getStudentList(Model model, @RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "10") int pageSize){
+        PageInfo<Student> pageInfo = studentService.getStudentList(pageNum,pageSize);
+        model.addAttribute("pageInfo",pageInfo);
         return "student_list";
     }
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
-    @ResponseBody
-    public Result<Integer> addStudentInfo(@Validated Student student){
+    public String addStudentInfo(@Validated Student student){
         int id = studentService.addStudent(student);
-        String msg = "";
-        if(id>0){
-           msg="插入成功";
-        }
-        else{
-            msg="插入失败";
-        }
-        return Result.success(id,msg);
+        return "redirect:/student/";
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/{id}/{slogan}",method = RequestMethod.PUT)
-    public Result<Integer> updateSlogan(@PathVariable Integer id,@PathVariable String slogan){
+    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
+    public String updateSlogan(@PathVariable Integer id,String slogan){
         int row = studentService.updateSloganById(id,slogan);
-        String msg = "";
-        if(row>0){
-            msg="更新成功";
-        }
-        else{
-            msg="更新失败";
-        }
-        return Result.success(row,msg);
+        return "redirect:/student/";
 
     }
 
-    @ResponseBody
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
-    public Result<Integer> deleteStudentInfo(@PathVariable Integer id){
+    public String deleteStudentInfo(@PathVariable Integer id){
         int row = studentService.deleteStudentById(id);
-        String msg = "";
-        if(row>0){
-            msg="删除成功";
-        }
-        else{
-            msg="删除失败";
-        }
-        return Result.success(row,msg);
+        return "redirect:/student/";
 
     }
 
