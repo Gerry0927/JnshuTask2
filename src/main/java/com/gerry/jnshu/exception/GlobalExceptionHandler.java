@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -14,13 +15,20 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import static com.gerry.jnshu.response.ResultCode.VALIDATE_FAILED;
 
 @ResponseBody
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
     private static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
@@ -50,22 +58,15 @@ public class GlobalExceptionHandler {
 //    /**
 //     * 方法参数校验
 //     */
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public Result<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-//        logger.error(e.getMessage(), e);
-//        BindingResult result = e.getBindingResult();
-//        List<String> resultList = new ArrayList<String>();
-//        for (ObjectError error : result.getAllErrors()) {
-//            String code = error.getCode();
-//            String message = error.getDefaultMessage();
-//            String description = String.format("%s:%s", code, message);
-//            resultList.add(message);
-//        }
-//
-//        return Result.failed(VALIDATE_FAILED.getCode(), e.getBindingResult().getFieldError().getDefaultMessage());
-//    }
-//
-
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public Result<String> handleMethodArgumentNotValidException(MethodArgumentTypeMismatchException e) {
+        logger.error(e.getMessage(), e);
+        String msg = e.getMessage();
+        if (msg.contains("NumberFormatException")) {
+            msg = "参数类型错误！";
+        }
+        return Result.failed(VALIDATE_FAILED.getCode(), msg);
+    }
 
 
         /**
@@ -101,21 +102,26 @@ public class GlobalExceptionHandler {
     /**
      * ValidationException
      */
-    @ExceptionHandler(ValidationException.class)
-    public Result<String> handleValidationException(ValidationException e) {
-        logger.error(e.getMessage(), e);
-        return Result.failed(VALIDATE_FAILED.getCode(), e.getCause().getMessage());
-    }
+//    @ExceptionHandler(ValidationException.class)
+//    public Result<String> handleValidationException(ValidationException e) {
+//        logger.error(e.getMessage(), e);
+//        StringBuilder errorMsg = new StringBuilder();
+//        if (e instanceof ConstraintViolationException) {
+//            ConstraintViolationException exs = (ConstraintViolationException) e;
 //
-    /**
-     * ConstraintViolationException
-     */
-    @ExceptionHandler(ConstraintViolationException.class)
-    public Result<String> handleConstraintViolationException(ConstraintViolationException e) {
-        logger.error(e.getMessage(), e);
-        return Result.failed(VALIDATE_FAILED.getCode(), e.getMessage());
-    }
-
+//            Set<ConstraintViolation<?>> violations = exs.getConstraintViolations();
+//            for (ConstraintViolation<?> item : violations) {
+//                /**打印验证不通过的信息*/
+//                errorMsg.append(item.getMessage()).append("\n");
+//            }
+//
+//        }
+//        else{
+//           errorMsg = new StringBuilder(e.getMessage());
+//        }
+//        return Result.failed(VALIDATE_FAILED.getCode(), errorMsg.toString());
+//    }
+//
     /**
      * 500 - Internal Server Error
      */
@@ -131,5 +137,49 @@ public class GlobalExceptionHandler {
         return Result.failed("server_error");
     }
 
+
+    /**
+     *
+
+    Spring常见异常及HTTP状态码
+    BindException
+    400 - Bad Request
+
+    ConversionNotSupportedException
+    500 - Internal Server Error
+
+    HttpMediaTypeNotAcceptableException
+    406 - Not Acceptable
+
+    HttpMediaTypeNotSupportedException
+    415 - Unsupported Media Type
+
+    HttpMessageNotReadableException
+    400 - Bad Request
+
+    HttpMessageNotWritableException
+    500 - Internal Server Error
+
+    HttpRequestMethodNotSupportedException
+    405 - Method Not Allowed
+
+    MethodArgumentNotValidException
+    400 - Bad Request
+
+    MissingServletRequestParameterException
+    400 - Bad Request
+
+    MissingServletRequestPartException
+    400 - Bad Request
+
+    NoSuchRequestHandlingMethodException
+    404 - Not Found
+
+    TypeMismatchException
+    400 - Bad Request
+
+    ConstraintViolationException
+     400 - Bad Request
+    */
 
 }

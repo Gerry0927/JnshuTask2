@@ -1,7 +1,11 @@
 package com.gerry.jnshu.bean;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Address {
     public String id;
+
+    @NotBlank
     public String province;
     private String city;
     private String distrinct;

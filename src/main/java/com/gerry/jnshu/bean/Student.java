@@ -1,18 +1,33 @@
 package com.gerry.jnshu.bean;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
 import java.util.Date;
 import java.util.List;
 
 public class Student {
-    private int id;
+
+    @NotBlank
+    @Range(min = 1, max = Integer.MAX_VALUE, message = "必须大于0", groups = {GroupA.class})
+    /**用户id*/
+    private Integer id;
 
     @NotBlank(message = "用户名不能为空")
+    @Length(min = 4, max = 20, message = "必须在[4,20]", groups = {GroupB.class})
     private String name;
     @NotBlank(message = "学号不能为空")
+    @Range(min = 0, max = 100, message = "学号必须在[0,100]", groups = {Default.class})
     private String onlineNum;
+
     @NotBlank(message = "修真类型不能为空")
     private String jnshuType;
 
@@ -26,6 +41,10 @@ public class Student {
     private long createTime;
     private long updateTime;
     //    private Address address;
+
+    @Valid
+    @NotNull
+    @Size(min = 1,message = "address 不能为空")
     List<Address> address;
 
     private Date birthday;
@@ -167,4 +186,12 @@ public class Student {
     public void setAddress(List<Address> address) {
         this.address = address;
     }
+
+    public interface GroupA{}
+
+    public interface GroupB{}
+
+
+
+
 }

@@ -11,7 +11,7 @@
         <property name="suffix" value=".jsp"/>
     </bean>
     <mvc:default-servlet-handler/>
-    <mvc:annotation-driven conversion-service="conversionService"/>
+    <mvc:annotation-driven conversion-service="conversionService" />
     <bean id="conversionService"
           class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
@@ -19,6 +19,29 @@
                 <bean class="com.gerry.jnshu.converter.DateConverter"/>
             </set>
         </property>
+    </bean>
+
+    <!-- 以下 validator  ConversionService 在使用 mvc:annotation-driven 会 自动注册-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <!-- 如果不加默认到 使用classpath下的 ValidationMessages.properties -->
+        <property name="validationMessageSource" ref="messageSource"/>
+
+    </bean>
+
+
+    <!-- 国际化的消息资源文件（本系统中主要用于显示/错误消息定制） -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames" value="messages"/>
+        <property name="useCodeAsDefaultMessage" value="false"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="cacheSeconds" value="60"/>
+    </bean>
+
+
+
+    <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor">
+        <property name="validator" ref="validator"/>
     </bean>
 
 </beans>

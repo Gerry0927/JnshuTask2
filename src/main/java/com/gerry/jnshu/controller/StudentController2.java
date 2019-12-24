@@ -6,18 +6,20 @@ import com.gerry.jnshu.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
 @Controller
+@RequestMapping("student")
+@Validated
 public class StudentController2 {
 
     @Resource
@@ -25,12 +27,13 @@ public class StudentController2 {
 
     @RequestMapping(value = "/{id}/{name}",method = RequestMethod.GET)
     @ResponseBody
-    public Student getStudentInfo(@PathVariable Integer id, @PathVariable String name){
+    public Student getStudentInfo(@PathVariable Integer id, @PathVariable @Size(min = 1,max = 3,message = "名字长度为1-3") String name){
         Student student = new Student();
         student.setName(name);
         student.setId(id);
         return student;
     }
+
 
 
 //    @RequestMapping(value = "/",method = RequestMethod.GET)
@@ -49,7 +52,7 @@ public class StudentController2 {
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
     @ResponseBody
-    public Result<Integer> addStudentInfo(@Validated Student student){
+    public Result<Integer> addStudentInfo( @Validated({Student.GroupA.class, Student.GroupB.class}) Student student){
         int id = studentService.addStudent(student);
         String msg = "";
         if(id>0){
@@ -60,6 +63,8 @@ public class StudentController2 {
         }
         return Result.success(id,msg);
     }
+
+
 
     @ResponseBody
     @RequestMapping(value = "/{id}/{slogan}",method = RequestMethod.PUT)

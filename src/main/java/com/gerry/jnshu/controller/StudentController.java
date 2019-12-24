@@ -4,7 +4,7 @@ import com.gerry.jnshu.response.Result;
 import com.gerry.jnshu.bean.Student;
 import com.gerry.jnshu.service.StudentService;
 import com.github.pagehelper.PageInfo;
-import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -19,7 +19,7 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("student")
+
 @Controller
 public class StudentController {
 

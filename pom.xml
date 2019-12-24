@@ -234,26 +234,26 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty.version}</version>
-                <configuration>
-                    <!--idleTimeout。一次连接的最大空闲时间。-->
-                    <!--port。jetty服务器的端口号。-->
-                    <!--host。jetty服务器监听的地址。-->
-                    <!--scanIntervalSeconds。扫描进行热部署的间隔时间。-->
-                    <httpConnector>
-                        <port>8080</port>
-                        <host>localhost</host>
-                    </httpConnector>
-                    <webApp>
-                        <contextPath>/JnshuTask2</contextPath>
-                    </webApp>
-                    <!--<scanIntervalSeconds>5</scanIntervalSeconds>-->
-                    <!--<jettyXml>jetty.xml,jetty-ssl.xml,jetty-https.xml</jettyXml>-->
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.eclipse.jetty</groupId>-->
+                <!--<artifactId>jetty-maven-plugin</artifactId>-->
+                <!--<version>${jetty.version}</version>-->
+                <!--<configuration>-->
+                    <!--&lt;!&ndash;idleTimeout。一次连接的最大空闲时间。&ndash;&gt;-->
+                    <!--&lt;!&ndash;port。jetty服务器的端口号。&ndash;&gt;-->
+                    <!--&lt;!&ndash;host。jetty服务器监听的地址。&ndash;&gt;-->
+                    <!--&lt;!&ndash;scanIntervalSeconds。扫描进行热部署的间隔时间。&ndash;&gt;-->
+                    <!--<httpConnector>-->
+                        <!--<port>8080</port>-->
+                        <!--<host>localhost</host>-->
+                    <!--</httpConnector>-->
+                    <!--<webApp>-->
+                        <!--<contextPath>/JnshuTask2</contextPath>-->
+                    <!--</webApp>-->
+                    <!--&lt;!&ndash;<scanIntervalSeconds>5</scanIntervalSeconds>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<jettyXml>jetty.xml,jetty-ssl.xml,jetty-https.xml</jettyXml>&ndash;&gt;-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
 
     </build>
