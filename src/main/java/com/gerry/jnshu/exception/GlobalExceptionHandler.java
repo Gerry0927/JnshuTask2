@@ -131,9 +131,6 @@ public class GlobalExceptionHandler {
         if (e instanceof CustomException) {
             return Result.failed(e.getMessage());
         }
-
-        logger.error("服务运行异常", e);
-        e.printStackTrace();
         return Result.failed("server_error");
     }
 

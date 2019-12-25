@@ -52,7 +52,7 @@ public class StudentController2 {
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
     @ResponseBody
-    public Result<Integer> addStudentInfo( @Validated({Student.GroupA.class, Student.GroupB.class}) Student student){
+    public Result<Integer> addStudentInfo(Student student){
         int id = studentService.addStudent(student);
         String msg = "";
         if(id>0){

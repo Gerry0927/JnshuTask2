@@ -16,16 +16,16 @@ import java.util.List;
 
 public class Student {
 
-    @NotBlank
-    @Range(min = 1, max = Integer.MAX_VALUE, message = "必须大于0", groups = {GroupA.class})
+//    @NotBlank
+//    @Range(min = 1, max = Integer.MAX_VALUE, message = "必须大于0", groups = {GroupA.class})
     /**用户id*/
     private Integer id;
 
     @NotBlank(message = "用户名不能为空")
-    @Length(min = 4, max = 20, message = "必须在[4,20]", groups = {GroupB.class})
+//    @Length(min = 4, max = 20, message = "必须在[4,20]", groups = {GroupB.class})
     private String name;
     @NotBlank(message = "学号不能为空")
-    @Range(min = 0, max = 100, message = "学号必须在[0,100]", groups = {Default.class})
+//    @Range(min = 0, max = 100, message = "学号必须在[0,100]", groups = {Default.class})
     private String onlineNum;
 
     @NotBlank(message = "修真类型不能为空")

@@ -39,9 +39,11 @@
     </bean>
 
 
-
     <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor">
         <property name="validator" ref="validator"/>
     </bean>
+
+    <!--开启 AspectJ 支持-->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 
 </beans>
