@@ -3,6 +3,7 @@ package com.gerry.jnshu.controller;
 import com.gerry.jnshu.bean.Student;
 import com.gerry.jnshu.response.Result;
 import com.gerry.jnshu.service.StudentService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -36,19 +37,19 @@ public class StudentController2 {
 
 
 
-//    @RequestMapping(value = "/",method = RequestMethod.GET)
-//    @ResponseBody
-//    public Result<List<Student>> getStudentList(){
-//        List<Student> studentList = studentService.getStudentList();
-//        String msg = "";
-//        if(studentList.size()>0){
-//            msg="查询成功";
-//        }
-//        else{
-//            msg="暂无数据";
-//        }
-//        return Result.success(studentList,msg);
-//    }
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    @ResponseBody
+    public Result<List<Student>> getStudentList(@RequestParam(required = false,defaultValue = "1") Integer pageNum,@RequestParam(required = false,defaultValue = "10") Integer pageSize){
+        PageInfo<Student> studentList = studentService.getStudentList(pageNum,pageSize);
+        String msg = "";
+        if(studentList.getList().size()>0){
+            msg="查询成功";
+        }
+        else{
+            msg="暂无数据";
+        }
+        return Result.success(studentList.getList(),msg);
+    }
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
     @ResponseBody
@@ -105,6 +106,7 @@ public class StudentController2 {
         // 逻辑视图名称
         return "index";
     }
+
 
     @RequestMapping(value = "/updateFile")
     public String updateItem(Model model, MultipartFile pictureFile) throws Exception {

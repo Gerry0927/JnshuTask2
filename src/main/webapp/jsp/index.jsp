@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-<META HTTP-EQUIV="Refresh" CONTENT="0;URL=${pageContext.request.contextPath}/student/">
+<META HTTP-EQUIV="Refresh" CONTENT="0;URL=${pageContext.request.contextPath}/">
 </body>
 </html>
 <body>
