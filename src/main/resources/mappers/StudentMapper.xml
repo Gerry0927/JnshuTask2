@@ -21,10 +21,10 @@
     <select id="queryStudentById" parameterType="long" resultType="com.gerry.jnshu.bean.Student">
         SELECT * FROM student WHERE id = #{id}
     </select>
-    <select id="queryStudentByName" parameterType="java.lang.String" resultType="com.gerry.jnshu.bean.Student">
-        SELECT id,name,jnshu_type,online_num,counsellor FROM student WHERE name = #{id}
+    <select id="queryStudentInfo" resultType="com.gerry.jnshu.bean.Student">
+        SELECT id,name,jnshu_type,online_num,counsellor FROM student WHERE name = #{name} and id=#{id}
     </select>
-    <insert id="addStudent" useGeneratedKeys="true" keyProperty="id" parameterType="com.gerry.jnshu.bean.Student">
+    <insert id="addStudent" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.gerry.jnshu.bean.Student">
       INSERT INTO student(name,qq,jnshu_type,join_time,school,online_num,daily_url,slogan,counsellor,known_path)
                 VALUES (#{name},#{qq},#{jnshuType},#{joinTime},#{school},#{onlineNum},#{dailyUrl},#{slogan},#{counsellor},#{knownPath})
     </insert>

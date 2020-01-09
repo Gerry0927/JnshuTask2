@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
@@ -56,5 +57,33 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
+    <!--3.redis-->
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!--最大空闲数-->
+        <property name="maxIdle" value="50"/>
+        <!--最大连接数-->
+        <property name="maxTotal" value="10000"/>
+        <!--最大等待时间-->
+        <property name="maxWaitMillis" value="20000"/>
+    </bean>
+    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <!--Redis服务地址-->
+        <property name="hostName" value="f0t1.top"/>
+        <!--端口号-->
+        <property name="port" value="6379"/>
+        <!--如果有密码则需要配置密码-->
+        <!--<property name="password" value="password"/>-->
+        <!--连接池配置-->
+        <property name="poolConfig" ref="poolConfig"/>
+    </bean>
+    <bean id="redisTemplate"
+          class="org.springframework.data.redis.core.RedisTemplate"
+          p:connection-factory-ref="connectionFactory">
+        <property name="keySerializer" ref="keySerializer"/>
+        <property name="valueSerializer" ref="jackson2JsonRedisSerializer"/>
 
+    </bean>
+    <bean id="keySerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+    <bean id="jackson2JsonRedisSerializer" class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+    <bean id="jdkSerializer" class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
 </beans>

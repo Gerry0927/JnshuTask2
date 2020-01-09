@@ -7,6 +7,7 @@ import com.github.pagehelper.PageInfo;
 import java.util.List;
 
 public interface StudentService {
+    Student getStudentInfo(Integer id,String name);
     PageInfo<Student> getStudentList(int pageNum, int pageSize);
     int addStudent(Student student);
     int updateSloganById(Integer id,String slogan);

@@ -29,9 +29,11 @@ public class StudentController {
     @RequestMapping(value = "/{id}/{name}", method = RequestMethod.GET)
     @ResponseBody
     public Student getStudentInfo(@PathVariable Integer id, @PathVariable String name) {
-        Student student = new Student();
-        student.setName(name);
-        student.setId(id);
+//        Student student = new Student();
+//        student.setName(name);
+//        student.setId(id);
+
+        Student student = studentService.getStudentInfo(id,name);
         return student;
     }
 

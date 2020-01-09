@@ -19,7 +19,7 @@ public class Student {
 //    @NotBlank
 //    @Range(min = 1, max = Integer.MAX_VALUE, message = "必须大于0", groups = {GroupA.class})
     /**用户id*/
-    private Integer id;
+    private int id;
 
     @NotBlank(message = "用户名不能为空")
 //    @Length(min = 4, max = 20, message = "必须在[4,20]", groups = {GroupB.class})
