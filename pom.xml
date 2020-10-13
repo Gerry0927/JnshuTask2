@@ -25,7 +25,7 @@
         <aspectj.version>5.0.7.RELEASE</aspectj.version>
         <aopalliance.version>1.0</aopalliance.version>
         <jetty.version>9.3.7.v20160115</jetty.version>
-        <junit.version>4.11</junit.version>
+        <junit.version>4.13.1</junit.version>
         <servlet.version>2.5</servlet.version>
         <jstl.version>1.2</jstl.version>
     </properties>
